@@ -31,6 +31,9 @@ def get_element(soup):
 		return IElement(soup)
 	elif soup.name == 'u':
 		return DivElement(soup)
+	elif soup.name == 'strike':
+		from .strike import StrikeElement
+		return StrikeElement(soup)
 	elif soup.name == 'br':
 		from .br import BrElement
 		return BrElement(soup)
