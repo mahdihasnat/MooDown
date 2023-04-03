@@ -1,11 +1,9 @@
-
 from .element import Element
 
-class SpanElement(Element):
+class BrElement(Element):
 
 	def __init__(self, soup) -> None:
 		super().__init__(soup)
-		self.md_ = soup.text
-		
+
 	def md(self):
-		return self.md_
+		return '  \n'

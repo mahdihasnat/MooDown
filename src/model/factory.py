@@ -11,15 +11,39 @@ def get_element(soup):
 	elif soup.name == 'ul':
 		from .ul import UlElement
 		return UlElement(soup)
+	elif soup.name == 'ol':
+		from .ol import OlElement
+		return OlElement(soup)
 	elif soup.name == 'img':
 		from .img import ImgElement
 		return ImgElement(soup)
 	elif soup.name == 'a':
 		from .a import AElement
 		return AElement(soup)
+	elif soup.name == 'p':
+		from .p import PElement
+		return PElement(soup)
+	elif soup.name == 'b':
+		from .b import BElement
+		return BElement(soup)
+	elif soup.name == 'i':
+		from .i import IElement
+		return IElement(soup)
+	elif soup.name == 'u':
+		return DivElement(soup)
+	elif soup.name == 'br':
+		from .br import BrElement
+		return BrElement(soup)
+	elif soup.name == 'wbr':
+		from .wbr import WbrElement
+		return WbrElement(soup)
 	elif soup.name == 'span':
-		from .span import SpanElement 
-		return SpanElement(soup)
+		return DivElement(soup)
+	elif soup.name == 'iframe':
+		from .iframe import IframeElement
+		return IframeElement(soup)
+	elif soup.name == 'google-sheets-html-origin':
+		return DivElement(soup)
 	else:
 		# print(soup.contents)
 		# for child in soup.children:
