@@ -80,7 +80,8 @@ def crawl(root,u):
 			
 			if nxt is not None:
 				rel_dir = os.path.relpath(nxt.out_dir, obj.out_dir)
-				a.href = ''+rel_dir+''
+				from utils.url import encode_url
+				a.href = encode_url(rel_dir)
 				q.append(nxt)
 		obj.write()
 
