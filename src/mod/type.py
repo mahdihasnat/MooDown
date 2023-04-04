@@ -5,15 +5,15 @@ from config.settings import baseurl
 
 class Type(Enum):
 	ASSIGN = 1
-	FOLDER = 7
-	PAGE = 8
-	DATA = 10
-	FILE = 9
-	FORUM_VIEW = 2
-	FORUM_DISCUS = 3
-	FORUM_OTHER = 4
-	RESOURCE = 5
-	URL = 6
+	FOLDER = 2
+	PAGE = 3
+	DATA = 4
+	FILE = 5
+	FORUM_VIEW = 6
+	FORUM_DISCUS = 7
+	FORUM_OTHER = 8
+	RESOURCE = 9
+	URL = 10
 	COURSE_VIEW = 11
 	USER_VIEW = 12
 	OTHER = 13

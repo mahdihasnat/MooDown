@@ -10,4 +10,13 @@ class Data(Base):
 		# remove navigation bar
 		x.find('ul', {'class': 'nav-tabs'}).decompose()
 
+		# remove datapreferences - search bar
+		x.find('div', {'class': 'datapreferences'}).decompose()
+
+		# remove last row of every data, lastrow
+		y = x.find_all('tr', {'class': 'lastrow'})
+		if y:
+			for i in y:
+				i.decompose()
+
 		

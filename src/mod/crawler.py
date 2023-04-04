@@ -41,7 +41,7 @@ def crawl(root,u):
 
 		visited.add(obj.link)
 
-		print('crawling',obj.link, ' in ', obj.out_dir)
+		print('crawling',obj.link, ' in ', obj.out_dir, ' with title ', obj.title)
 		AElement.clear_instances()
 		obj.crawl(u)
 
