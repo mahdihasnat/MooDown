@@ -17,6 +17,10 @@ class Assign:
 		assert r.status_code == 200
 		s = BeautifulSoup(r.text,'html.parser')
 		x = s.find('div',{'role':'main'})
+		
+		# remove the last row containig submission comments
+		x.find('tr',{'class':['r0','lastrow']}).decompose()
+		
 		from model.factory import get_element
 		t = get_element(x)
 		with open(os.path.join(self.out_dir,'README.md'),'w') as f:
