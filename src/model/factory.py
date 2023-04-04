@@ -9,13 +9,9 @@ def get_element(soup):
 	elif soup.name[0] == 'h' and soup.name[1:].isdigit():
 		from .html import HtmlElement
 		return HtmlElement(soup)
-		# return HeaderElement(soup)
-	# elif soup.name == 'ul':
-	# 	from .ul import UlElement
-	# 	return UlElement(soup)
-	elif soup.name == 'ol':
-		from .ol import OlElement
-		return OlElement(soup)
+	# elif soup.name == 'ol':
+	# 	from .ol import OlElement
+	# 	return OlElement(soup)
 	elif soup.name == 'img':
 		from .img import ImgElement
 		return ImgElement(soup)
@@ -49,7 +45,7 @@ def get_element(soup):
 		return IframeElement(soup)
 	elif soup.name == 'google-sheets-html-origin':
 		return DivElement(soup)
-	elif soup.name in ['table','thead','th','tbody','tr','td','ul','li',
+	elif soup.name in ['table','thead','th','tbody','tr','td','ul','li','ol',
 				'col','colgroup','center']:
 		from .html import HtmlElement
 		return HtmlElement(soup)
