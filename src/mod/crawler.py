@@ -76,9 +76,15 @@ def crawl(root,u):
 			elif typ == Type.DATA:
 				from mod.data import Data
 				nxt = Data(title, href, obj.out_dir)
-			elif typ == Type.FILE:
-				from mod.file import File
-				nxt = File(title, href, obj.out_dir, u)
+			elif typ == Type.FILE or typ == Type.RESOURCE:
+				header = u.session.head(href, allow_redirects=True)
+				# print('header: ', header.headers)
+				if 'text/html' in header.headers['Content-Type'].split(';'):
+					from .base import Base
+					nxt = Base(title, href, obj.out_dir)
+				else:
+					from mod.file import File
+					nxt = File(title, href, obj.out_dir, header)
 			
 			if nxt is not None:
 				rel_dir = os.path.relpath(nxt.out_dir, obj.out_dir)

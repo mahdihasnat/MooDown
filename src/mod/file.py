@@ -3,10 +3,9 @@ import os
 
 class File(Base):
 
-	def __init__(self, title, link, out_dir, u) -> None:
+	def __init__(self, title, link, out_dir, head) -> None:
 		super().__init__('file', link, out_dir)
 
-		head = u.session.head(link)
 		file_name = self.get_file_name(head.headers['Content-Disposition'])
 		self.out_dir = os.path.join(self.out_dir, file_name)
 		self.title = title
