@@ -36,11 +36,6 @@ class User:
 		from bs4 import BeautifulSoup
 		soup = BeautifulSoup(r.text, 'html.parser')
 
-		# print to file 
-		with open('courses.html','w',encoding='utf-8') as f:
-			f.write(soup.prettify())
-		
-
 		course_dict = dict()
 
 		all_course = soup.find('div',class_ ='course_list').find_all('div',class_ ='course_title')

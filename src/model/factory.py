@@ -2,7 +2,7 @@ from .div import DivElement
 from .header import HeaderElement
 
 def get_element(soup):
-	# print("currently parsing: ",soup.name)
+	# print("current parsing: ",soup.name)
 	# print("current content: ",soup.prettify())
 	if soup.name == 'div':
 		return DivElement(soup)
@@ -47,6 +47,9 @@ def get_element(soup):
 		return IframeElement(soup)
 	elif soup.name == 'google-sheets-html-origin':
 		return DivElement(soup)
+	elif soup.name in ['table','tbody','tr','td']:
+		from .html import HtmlElement
+		return HtmlElement(soup)
 	else:
 		# print(soup.contents)
 		# for child in soup.children:
