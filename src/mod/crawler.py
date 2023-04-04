@@ -42,8 +42,6 @@ def crawl(root,u):
 		visited.add(obj.link)
 
 		print('crawling',obj.link, ' in ', obj.out_dir)
-		if counter > 1000:
-			break
 		AElement.clear_instances()
 		obj.crawl(u)
 
