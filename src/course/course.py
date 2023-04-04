@@ -27,6 +27,9 @@ class Course:
 		self.title = title
 	
 	def crawl(self,u):
+
+		print(f'crawling {self.link}...')
+
 		from model.a import AElement
 		AElement.clear_instances()
 		from model.factory import get_element
@@ -55,6 +58,14 @@ class Course:
 				# get relative path for linking
 				rel_dir = os.path.relpath(assign.out_dir, self.out_dir)
 				a.href = ''+rel_dir+''
+			elif typ == Type.FOLDER or typ == Type.FORUM_VIEW:
+				from mod.base import Base
+				folder = Base(title, href, self.out_dir)
+				folder.crawl(u)
+				# get relative path for linking
+				rel_dir = os.path.relpath(folder.out_dir, self.out_dir)
+				a.href = ''+rel_dir+''
+			
 
 		for assign in self.assigns:
 			assign.crawl(u)
