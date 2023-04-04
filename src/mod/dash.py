@@ -9,5 +9,11 @@ class Dash(Base):
 	def modify_page(self, x):
 		x.find('aside').unwrap()
 		
-		# with open('tmp.html', 'w') as f:
-		# 	f.write(x.prettify())
+		while True:
+			try:
+				x.find('div',{'class':'activity_info'}).decompose()
+			except:
+				break	
+		
+		with open('tmp.html', 'w') as f:
+			f.write(x.prettify())

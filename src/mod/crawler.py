@@ -8,7 +8,7 @@ def save_state(visited, q):
 	with open('visited.pickle','wb') as f:
 		pickle.dump(visited, f)
 	with open('q.pickle','wb') as f:
-		# pickle.dump(q, f)
+		pickle.dump(q, f)
 		pass
 
 def load_state(root):
@@ -41,7 +41,9 @@ def crawl(root,u):
 
 		visited.add(obj.link)
 
-		print('crawling',obj.link)
+		print('crawling',obj.link, ' in ', obj.out_dir)
+		if counter > 1000:
+			break
 		AElement.clear_instances()
 		obj.crawl(u)
 

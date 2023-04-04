@@ -59,6 +59,8 @@ def get_element(soup):
 	elif soup.name in ['pre']:
 		from .pre import PreElement
 		return PreElement(soup)
+	elif soup.name in ['sub','sup']: # ignore subscript and superscript
+		return DivElement(soup)
 	else:
 		# print(soup.contents)
 		# for child in soup.children:
