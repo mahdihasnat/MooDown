@@ -9,3 +9,8 @@ class ForumDiscus(Base):
 	def modify_page(self, x):
 		# remove the select box
 		x.find('div',{'class':['discussioncontrols', 'clearfix']}).decompose()
+
+		# remove row side , which contains show parent and reply
+		y = x.find_all('div',{'class':['side']})
+		for i in y:
+			i.decompose()
