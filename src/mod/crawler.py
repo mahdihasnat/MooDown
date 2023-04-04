@@ -62,7 +62,7 @@ def crawl(root,u):
 				from mod.assign import Assign
 				nxt = Assign(title,href,obj.out_dir)
 				
-			elif typ == Type.FOLDER:
+			elif typ == Type.FOLDER or typ == Type.PAGE:
 				from mod.base import Base
 				nxt = Base(title, href, obj.out_dir)
 
@@ -76,7 +76,9 @@ def crawl(root,u):
 			elif typ == Type.DATA:
 				from mod.data import Data
 				nxt = Data(title, href, obj.out_dir)
-			
+			elif typ == Type.FILE:
+				from mod.file import File
+				nxt = File(title, href, obj.out_dir, u)
 			
 			if nxt is not None:
 				rel_dir = os.path.relpath(nxt.out_dir, obj.out_dir)

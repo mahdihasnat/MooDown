@@ -27,12 +27,3 @@ class User:
 	
 	def get_absolute(self, url):
 		return self.session.get(url)
-
-if __name__ == '__main__':
-	print('id: ',id)
-	# print('pwd: ',pwd)
-	u = User(id,pwd)
-	from mod.dash import Dash
-	root = Dash('',baseurl+'my/index.php?mynumber=-2',local_output_dir)
-	from mod.crawler import crawl
-	crawl(root,u)
