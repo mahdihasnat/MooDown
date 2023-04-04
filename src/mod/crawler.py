@@ -61,9 +61,15 @@ def crawl(root,u):
 			elif typ == Type.ASSIGN:
 				from mod.assign import Assign
 				nxt = Assign(title,href,obj.out_dir)
-			elif typ == Type.FOLDER or typ == Type.FORUM_VIEW:
+				
+			elif typ == Type.FOLDER:
 				from mod.base import Base
 				nxt = Base(title, href, obj.out_dir)
+
+			elif typ == Type.FORUM_VIEW:
+				from mod.forum_view import ForumView
+				nxt = ForumView(title, href, obj.out_dir)
+
 			elif typ == Type.FORUM_DISCUS:
 				from mod.forum_discus import ForumDiscus
 				nxt = ForumDiscus(title, href, obj.out_dir)
