@@ -36,6 +36,30 @@ class Course:
 		b = BeautifulSoup(r.text, 'html.parser')
 		root = b.find('div',class_ = 'course-content')
 		elem = get_element(root)
+
+		self.assigns = []
+		linkElems = AElement.get_instances()
+		for a in linkElems:
+			href = a.href.strip()
+			title  = a.title().strip()
+			from mod.type import get_type,Type
+			typ = get_type(href)
+			if typ == Type.ASSIGN:
+				# print(title)
+				# print(href)
+				
+				from mod.assign import Assign
+				assign = Assign(title, href, self.out_dir)
+				self.assigns.append(assign)
+
+				# get relative path for linking
+				rel_dir = os.path.relpath(assign.out_dir, self.out_dir)
+				a.href = '<'+rel_dir+'>'
+
+		for assign in self.assigns:
+			assign.crawl(u)
+
+
 		readme = elem.md()
 		with open(os.path.join(self.out_dir, 'README.md'), 'w') as f:
 			f.write(readme)

@@ -53,7 +53,7 @@ class User:
 		for title, link in course_dict.items():
 			self.courses.append(Course(title, link, out_dir))
 		
-		for c in self.courses:
+		for c in self.courses[0:]:
 			c.crawl(self)
 
 

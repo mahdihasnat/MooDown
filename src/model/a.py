@@ -14,3 +14,6 @@ class AElement(Element):
 
 	def md(self):
 		return '[' + self.ch.md() + '](' + self.href + ')'
+	
+	def title(self):
+		return self.ch.md()
