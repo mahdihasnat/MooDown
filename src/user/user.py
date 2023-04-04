@@ -1,5 +1,8 @@
 # import required module
 import sys
+import os
+from dotenv import load_dotenv
+load_dotenv()
  
 # append the path of the
 # parent directory
@@ -32,6 +35,12 @@ class User:
 
 		from bs4 import BeautifulSoup
 		soup = BeautifulSoup(r.text, 'html.parser')
+
+		# print to file 
+		with open('courses.html','w',encoding='utf-8') as f:
+			f.write(soup.prettify())
+		
+
 		course_dict = dict()
 
 		all_course = soup.find('div',class_ ='course_list').find_all('div',class_ ='course_title')
@@ -58,8 +67,11 @@ class User:
 
 
 if __name__ == '__main__':
-	from config.settings import id
-	from config.settings import pwd
-	from config.settings import local_output_dir
+	id = os.environ.get('moodle_id')
+	print("id: ",id)
+	print("id type",type(id))
+	pwd = os.environ.get('moodle_pwd')
+	# print("pwd: ",pwd)
+	local_output_dir = os.environ.get('local_output_dir')
 	u = User(id,pwd)
 	u.crawl(local_output_dir)
