@@ -54,7 +54,7 @@ class Course:
 
 				# get relative path for linking
 				rel_dir = os.path.relpath(assign.out_dir, self.out_dir)
-				a.href = '<'+rel_dir+'>'
+				a.href = ''+rel_dir+''
 
 		for assign in self.assigns:
 			assign.crawl(u)

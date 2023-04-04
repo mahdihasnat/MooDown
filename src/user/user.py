@@ -43,10 +43,7 @@ class User:
 			course_box = c.find('h2',class_ = 'title').find('a')
 			c_link = course_box.get('href')
 			c_title = course_box.get('title')
-		#             print(c_link)
-		#             print(c_title)
 			course_dict[c_title] = c_link
-		# print(course_dict)
 		return course_dict
 
 	def crawl(self, out_dir):
