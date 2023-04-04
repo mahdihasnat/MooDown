@@ -4,13 +4,15 @@ from .header import HeaderElement
 def get_element(soup):
 	# print("current parsing: ",soup.name)
 	# print("current content: ",soup.prettify())
-	if soup.name == 'div':
+	if soup.name in ['div','textarea','font','form']:
 		return DivElement(soup)
 	elif soup.name[0] == 'h' and soup.name[1:].isdigit():
-		return HeaderElement(soup)
-	elif soup.name == 'ul':
-		from .ul import UlElement
-		return UlElement(soup)
+		from .html import HtmlElement
+		return HtmlElement(soup)
+		# return HeaderElement(soup)
+	# elif soup.name == 'ul':
+	# 	from .ul import UlElement
+	# 	return UlElement(soup)
 	elif soup.name == 'ol':
 		from .ol import OlElement
 		return OlElement(soup)
@@ -47,9 +49,12 @@ def get_element(soup):
 		return IframeElement(soup)
 	elif soup.name == 'google-sheets-html-origin':
 		return DivElement(soup)
-	elif soup.name in ['table','tbody','tr','td']:
+	elif soup.name in ['table','tbody','tr','td','ul','li']:
 		from .html import HtmlElement
 		return HtmlElement(soup)
+	elif soup.name in ['input']:
+		from .span import SpanElement
+		return SpanElement(soup)
 	else:
 		# print(soup.contents)
 		# for child in soup.children:

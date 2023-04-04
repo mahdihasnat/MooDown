@@ -23,5 +23,6 @@ class DivElement(Element):
 	def md(self) -> str:
 		ret = ''
 		for child in self.ch:
-			ret += child.md()+' '
+			ret += child.md()+''
+		
 		return ret

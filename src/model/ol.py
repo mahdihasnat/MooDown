@@ -18,6 +18,6 @@ class OlElement(Element):
 		s = ''
 		count = 1
 		for child in self.ch:
-			s += str(count) + child.md() + '\n'
+			s += str(count)+' ' + child.md() + '\n'
 			count +=1
 		return s
