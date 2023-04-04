@@ -14,10 +14,16 @@ class Element:
 	
 	@classmethod
 	def get_instances(cls):
+		ret = []
 		for inst_ref in cls.__refs__[cls]:
 			inst = inst_ref()
 			if inst is not None:
-				yield inst
+				ret.append(inst)
+		return ret
+	
+	@classmethod
+	def clear_instances(cls):
+		cls.__refs__[cls] = []
 
 	def md(self):
 		assert False, 'Not implemented'
