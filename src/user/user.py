@@ -1,14 +1,13 @@
 # import required module
 import sys
 import os
-from dotenv import load_dotenv
-load_dotenv()
- 
+
 # append the path of the
 # parent directory
 sys.path.append("..")
 
 from config.settings import baseurl
+from config.settings import id,pwd,local_output_dir
 from requests import session
 
 class User:
@@ -62,11 +61,7 @@ class User:
 
 
 if __name__ == '__main__':
-	id = os.environ.get('moodle_id')
-	print("id: ",id)
-	print("id type",type(id))
-	pwd = os.environ.get('moodle_pwd')
-	# print("pwd: ",pwd)
-	local_output_dir = os.environ.get('local_output_dir')
+	print('id: ',id)
+	# print('pwd: ',pwd)
 	u = User(id,pwd)
 	u.crawl(local_output_dir)
