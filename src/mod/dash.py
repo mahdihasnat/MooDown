@@ -13,7 +13,4 @@ class Dash(Base):
 			try:
 				x.find('div',{'class':'activity_info'}).decompose()
 			except:
-				break	
-		
-		with open('tmp.html', 'w') as f:
-			f.write(x.prettify())
+				break

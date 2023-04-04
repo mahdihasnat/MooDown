@@ -9,6 +9,8 @@ class Assign(Base):
 	
 	def modify_page(self, x):
 		# remove the last row containig submission comments
-		x.find('tr',{'class':['r0','lastrow']}).decompose()
+		x.find('tr',{'class':['lastrow']}).decompose()
+		
+
 	
 		

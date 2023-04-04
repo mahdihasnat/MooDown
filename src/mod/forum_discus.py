@@ -9,6 +9,3 @@ class ForumDiscus(Base):
 	def modify_page(self, x):
 		# remove the select box
 		x.find('div',{'class':['discussioncontrols', 'clearfix']}).decompose()
-
-		# with open('tmp.html','w') as f:
-		# 	f.write(x.prettify())
