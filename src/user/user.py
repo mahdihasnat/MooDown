@@ -27,38 +27,12 @@ class User:
 	
 	def get_absolute(self, url):
 		return self.session.get(url)
-	
-	def get_courses(self):
-		r = self.get('my/index.php?mynumber=-2')
-		assert r.status_code == 200
-
-		from bs4 import BeautifulSoup
-		soup = BeautifulSoup(r.text, 'html.parser')
-
-		course_dict = dict()
-
-		all_course = soup.find('div',class_ ='course_list').find_all('div',class_ ='course_title')
-
-		for c in all_course:
-			course_box = c.find('h2',class_ = 'title').find('a')
-			c_link = course_box.get('href')
-			c_title = course_box.get('title')
-			course_dict[c_title] = c_link
-		return course_dict
-
-	def crawl(self, out_dir):
-		course_dict = self.get_courses()
-		self.courses = []
-		from course.course import Course
-		for title, link in course_dict.items():
-			self.courses.append(Course(title, link, out_dir))
-		
-		for c in self.courses[0:]:
-			c.crawl(self)
-
 
 if __name__ == '__main__':
 	print('id: ',id)
 	# print('pwd: ',pwd)
 	u = User(id,pwd)
-	u.crawl(local_output_dir)
+	from mod.dash import Dash
+	root = Dash('',baseurl+'my/index.php?mynumber=-2',local_output_dir)
+	from mod.crawler import crawl
+	crawl(root,u)
