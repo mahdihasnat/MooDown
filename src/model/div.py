@@ -1,8 +1,9 @@
 from .element import Element
 
 class DivElement(Element):
-	def __init__(self,soup) -> None:
+	def __init__(self,soup,suffix='') -> None:
 		super().__init__(soup)
+		self.suffix = suffix
 		self.ch = []
 		# print('name of soup: ',soup.name)
 		
@@ -24,5 +25,5 @@ class DivElement(Element):
 		ret = ''
 		for child in self.ch:
 			ret += child.md()+''
-		
+		ret+=self.suffix
 		return ret

@@ -4,14 +4,14 @@ from .header import HeaderElement
 def get_element(soup):
 	# print("current parsing: ",soup.name)
 	# print("current content: ",soup.prettify())
-	if soup.name in ['div','textarea','font','form']:
+	
+	if soup.name == 'div':
+		return DivElement(soup,'\n')
+	elif soup.name in ['textarea','font','form']:
 		return DivElement(soup)
 	elif soup.name[0] == 'h' and soup.name[1:].isdigit():
 		from .html import HtmlElement
 		return HtmlElement(soup)
-	# elif soup.name == 'ol':
-	# 	from .ol import OlElement
-	# 	return OlElement(soup)
 	elif soup.name == 'img':
 		from .img import ImgElement
 		return ImgElement(soup)
@@ -57,6 +57,9 @@ def get_element(soup):
 		return PreElement(soup)
 	elif soup.name in ['sub','sup']: # ignore subscript and superscript
 		return DivElement(soup)
+	elif soup.name in ['hr']:
+		from .html import HtmlSingleton
+		return HtmlSingleton(soup)
 	else:
 		# print(soup.contents)
 		# for child in soup.children:

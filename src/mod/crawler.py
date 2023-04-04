@@ -73,6 +73,10 @@ def crawl(root,u):
 			elif typ == Type.FORUM_DISCUS:
 				from mod.forum_discus import ForumDiscus
 				nxt = ForumDiscus(title, href, obj.out_dir)
+			elif typ == Type.DATA:
+				from mod.data import Data
+				nxt = Data(title, href, obj.out_dir)
+			
 			
 			if nxt is not None:
 				rel_dir = os.path.relpath(nxt.out_dir, obj.out_dir)
