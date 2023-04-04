@@ -22,7 +22,7 @@ def get_element(soup):
 	elif soup.name == 'a':
 		from .a import AElement
 		return AElement(soup)
-	elif soup.name == 'p':
+	elif soup.name in ['p','label']:
 		from .p import PElement
 		return PElement(soup)
 	elif soup.name == 'b':
@@ -33,7 +33,7 @@ def get_element(soup):
 		return IElement(soup)
 	elif soup.name == 'u':
 		return DivElement(soup)
-	elif soup.name == 'strike':
+	elif soup.name in ['strike','s']:
 		from .strike import StrikeElement
 		return StrikeElement(soup)
 	elif soup.name == 'br':
@@ -49,12 +49,16 @@ def get_element(soup):
 		return IframeElement(soup)
 	elif soup.name == 'google-sheets-html-origin':
 		return DivElement(soup)
-	elif soup.name in ['table','thead','th','tbody','tr','td','ul','li']:
+	elif soup.name in ['table','thead','th','tbody','tr','td','ul','li',
+				'col','colgroup','center']:
 		from .html import HtmlElement
 		return HtmlElement(soup)
 	elif soup.name in ['input']:
 		from .span import SpanElement
 		return SpanElement(soup)
+	elif soup.name in ['pre']:
+		from .pre import PreElement
+		return PreElement(soup)
 	else:
 		# print(soup.contents)
 		# for child in soup.children:

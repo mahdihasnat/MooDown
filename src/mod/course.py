@@ -6,15 +6,15 @@ import sys
 sys.path.append("..")
 
 from bs4 import BeautifulSoup
+from .base import Base
 
-class Course:
+class Course(Base):
 
 	def __init__(self, title, link, out_dir) -> None:
 		
 		# if out_dir doesnot exist, create it
 
 		term, courseid, coursetitle = self.get_term_courseid_coursetitle(title)
-
 		out_dir = os.path.join(out_dir, term)
 		out_dir = os.path.join(out_dir, courseid)
 		
@@ -38,45 +38,8 @@ class Course:
 		assert r.status_code == 200
 		b = BeautifulSoup(r.text, 'html.parser')
 		root = b.find('div',class_ = 'course-content')
-		elem = get_element(root)
-
-		self.assigns = []
-		linkElems = AElement.get_instances()
-		for a in linkElems:
-			href = a.href.strip()
-			title  = a.title().strip()
-			from mod.type import get_type,Type
-			typ = get_type(href)
-			if typ == Type.ASSIGN:
-				# print(title)
-				# print(href)
-				
-				from mod.assign import Assign
-				assign = Assign(title, href, self.out_dir)
-				self.assigns.append(assign)
-
-				# get relative path for linking
-				rel_dir = os.path.relpath(assign.out_dir, self.out_dir)
-				a.href = ''+rel_dir+''
-			elif typ == Type.FOLDER or typ == Type.FORUM_VIEW:
-				from mod.base import Base
-				folder = Base(title, href, self.out_dir)
-				folder.crawl(u)
-				# get relative path for linking
-				rel_dir = os.path.relpath(folder.out_dir, self.out_dir)
-				a.href = ''+rel_dir+''
-			
-
-		for assign in self.assigns:
-			assign.crawl(u)
-
-
-		readme = elem.md()
-		with open(os.path.join(self.out_dir, 'README.md'), 'w') as f:
-			f.write(readme)
-		
-
-
+		self.model = get_element(root)
+	
 	def get_term_courseid_coursetitle(self,title):
 		s = title.split(' ')
 		term = ' '.join(s[:2])

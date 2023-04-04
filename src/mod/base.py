@@ -25,6 +25,9 @@ class Base():
 		self.modify_page(x)
 		
 		from model.factory import get_element
-		t = get_element(x)
+		self.model = get_element(x)
+	
+	def write(self):
+		readme = self.model.md()
 		with open(os.path.join(self.out_dir,'README.md'),'w') as f:
-			f.write(t.md())
+			f.write(readme)
