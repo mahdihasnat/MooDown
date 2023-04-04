@@ -34,9 +34,7 @@ class Course(Base):
 		AElement.clear_instances()
 		from model.factory import get_element
 
-		r = u.get_absolute(self.link)
-		assert r.status_code == 200
-		b = BeautifulSoup(r.text, 'html.parser')
+		b = u.get_absolute_soup(self.link)
 		root = b.find('div',class_ = 'course-content')
 		self.model = get_element(root)
 	

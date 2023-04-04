@@ -16,8 +16,12 @@ def get_element(soup):
 		from .img import ImgElement
 		return ImgElement(soup)
 	elif soup.name == 'a':
-		from .a import AElement
-		return AElement(soup)
+		if soup.has_attr('href'):
+			from .a import AElement
+			return AElement(soup)
+		else:
+			from .html import HtmlIgnoreElement
+			return HtmlIgnoreElement(soup)
 	elif soup.name in ['p','label']:
 		from .p import PElement
 		return PElement(soup)
@@ -60,6 +64,9 @@ def get_element(soup):
 	elif soup.name in ['hr']:
 		from .html import HtmlSingleton
 		return HtmlSingleton(soup)
+	elif soup.name in ['param','object','video','source']:
+		from .html import HtmlIgnoreElement
+		return HtmlIgnoreElement(soup)
 	else:
 		# print(soup.contents)
 		# for child in soup.children:

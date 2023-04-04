@@ -30,3 +30,22 @@ class HtmlSingleton(Element):
 	
 	def md(self):
 		return '<'+self.soup.name+' />'
+
+class HtmlIgnoreElement(Element):
+
+	def __init__(self, soup) -> None:
+		super().__init__(soup)
+		self.chs = []
+		for ch in soup.children:
+			if ch.name == None:
+				from .span import SpanElement
+				self.chs.append(SpanElement(ch))
+			else:	
+				from .factory import get_element
+				self.chs.append(get_element(ch))
+
+	def md(self):
+		ret = ''
+		for ch in self.chs:
+			ret += ch.md()
+		return ret

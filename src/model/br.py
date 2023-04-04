@@ -6,4 +6,4 @@ class BrElement(Element):
 		super().__init__(soup)
 
 	def md(self):
-		return '  \n'
+		return '<br />'

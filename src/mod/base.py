@@ -17,9 +17,7 @@ class Base():
 		pass
 
 	def crawl(self, u):
-		r = u.get_absolute(self.link)
-		assert r.status_code == 200
-		s = BeautifulSoup(r.text,'html.parser')
+		s = u.get_absolute_soup(self.link)
 		x = s.find('div',{'role':'main'})
 
 		self.modify_page(x)
