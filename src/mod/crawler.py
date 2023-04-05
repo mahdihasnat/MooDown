@@ -63,13 +63,13 @@ def crawl(root,u):
 				head = u.session.head(href, allow_redirects=True)
 				if head.status_code == 200:
 					href = head.headers['Location'] if 'Location' in head.headers else href
+					typ = get_type(href)
 
 			if href in visited:
 				visited[old_href] = visited[href]
 				a.href = encode_url(os.path.relpath(visited[old_href], obj.out_dir))
 				continue
 
-			typ = get_type(href)
 
 			nxt = None
 

@@ -11,7 +11,8 @@ class Base():
 		
 		if not os.path.exists(out_dir):
 			os.makedirs(out_dir)
-		assert os.path.exists(out_dir), f'out_dir {out_dir} doesnot exist'
+		
+		# assert os.path.exists(out_dir), f'out_dir {out_dir} doesnot exist'
 
 		self.link = link
 		self.out_dir = out_dir
