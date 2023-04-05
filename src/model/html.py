@@ -22,6 +22,12 @@ class HtmlElement(Element):
 			ret += ch.md()
 		ret += '</'+self.soup.name+'>'
 		return ret
+	
+	def text(self):
+		ret = ''
+		for ch in self.chs:
+			ret += ch.text()
+		return ret
 
 class HtmlSingleton(Element):
 
