@@ -52,9 +52,12 @@ def crawl(root,u):
 			href = a.href.strip()
 			title  = a.title().strip()
 			
-			head = u.session.head(href, allow_redirects=True)
-			if head.status_code == 200:
-				href = head.headers['Location'] if 'Location' in head.headers else href
+			typ = get_type(href)
+			
+			if typ != Type.OTHER:
+				head = u.session.head(href, allow_redirects=True)
+				if head.status_code == 200:
+					href = head.headers['Location'] if 'Location' in head.headers else href
 
 			typ = get_type(href)
 
