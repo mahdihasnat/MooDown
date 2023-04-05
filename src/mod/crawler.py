@@ -12,12 +12,12 @@ def save_state(visited, q):
 		pass
 
 def load_state(root):
-	visited = set()
+	visited = dict()
 	# check if visited.pickle exists
 	if os.path.exists('visited.pickle'):
 		with open('visited.pickle','rb') as f:
 			visited = pickle.load(f)
-	q = []
+	q = list()
 	q.append(root)
 	if os.path.exists('q.pickle'):
 		with open('q.pickle','rb') as f:
@@ -39,7 +39,7 @@ def crawl(root,u):
 		if obj.link in visited:
 			continue
 
-		visited.add(obj.link)
+		visited[obj.link] = obj.out_dir
 
 		print('crawling',obj.link, ' in ', obj.out_dir, ' with title ', obj.title)
 		
@@ -53,7 +53,7 @@ def crawl(root,u):
 			title  = a.title().strip()
 			
 			typ = get_type(href)
-			
+
 			if typ != Type.OTHER:
 				head = u.session.head(href, allow_redirects=True)
 				if head.status_code == 200:
@@ -98,9 +98,12 @@ def crawl(root,u):
 					nxt = File(title, href, obj.out_dir, head)
 			
 			if nxt is not None:
+				if nxt.link in visited:
+					nxt.out_dir = visited[nxt.link]
 				rel_dir = os.path.relpath(nxt.out_dir, obj.out_dir)
 				from utils.url import encode_url
 				a.href = encode_url(rel_dir)
-				q.append(nxt)
+				if nxt.link not in visited:
+					q.append(nxt)
 		obj.write()
 

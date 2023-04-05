@@ -24,6 +24,13 @@ class ImgElement(Element):
 
 	def md(self):
 		self.soup.attrs['src'] = self.a.href
+		if 'title' in self.soup.attrs:
+			del self.soup.attrs['title']
+		if 'alt' in self.soup.attrs:
+			del self.soup.attrs['alt']
+		if 'class' in self.soup.attrs:
+			del self.soup.attrs['class']
+		
 		ret = '<img ' + ' '.join([str(k) + '="' + str(v) + '"' for k,v in self.soup.attrs.items()]) + ' />'
 		return ret
 	
