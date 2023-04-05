@@ -5,7 +5,6 @@ class SpanElement(Element):
 
 	def __init__(self, soup) -> None:
 		super().__init__(soup)
-		self.md_ = soup.text
 		
 	def md(self):
-		return self.md_
+		return self.soup.get_text()

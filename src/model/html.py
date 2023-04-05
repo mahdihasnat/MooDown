@@ -55,3 +55,10 @@ class HtmlIgnoreElement(Element):
 		for ch in self.chs:
 			ret += ch.md()
 		return ret
+
+	def text(self):
+		ret = ''
+		for ch in self.chs:
+			ret += ch.text()
+		return ret
+		

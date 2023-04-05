@@ -7,3 +7,6 @@ class PreElement(Element):
 	
 	def md(self):
 		return '```\n'+self.soup.get_text()+'\n```\n'
+	
+	def text(self):
+		return self.soup.get_text()
