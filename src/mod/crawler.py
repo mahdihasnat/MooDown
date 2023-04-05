@@ -52,6 +52,9 @@ def crawl(root,u):
 			href = a.href.strip()
 			title  = a.title().strip()
 			
+			if href in visited:
+				continue
+
 			typ = get_type(href)
 
 			if typ != Type.OTHER:

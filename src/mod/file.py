@@ -1,6 +1,6 @@
 from .base import Base
 import os
-
+from tqdm import tqdm
 class File(Base):
 
 	def __init__(self, title, link, out_dir, head) -> None:
@@ -15,11 +15,22 @@ class File(Base):
 	
 	def crawl(self, u):
 		r = u.session.get(self.link, stream=True)
-		print("out_dir: ",self.out_dir)
+		# print('link: ',self.link)
+		total_size_in_bytes= int(r.headers.get('content-length', 0))
+		block_size = 1024 #1 Kibibyte
+		progress_bar = tqdm(total=total_size_in_bytes, unit='iB', unit_scale=True)
 		with open(self.out_dir, 'wb') as f:
-			for chunk in r.iter_content(chunk_size=1024):
-				if chunk:
-					f.write(chunk)
+			for data in r.iter_content(block_size):
+				progress_bar.update(len(data))
+				f.write(data)
+		progress_bar.close()
+		if total_size_in_bytes != 0 and progress_bar.n != total_size_in_bytes:
+			print('WARNING: total size does not match progress bar size')
+			print('p bar n: ',progress_bar.n)
+			print('total size: ',total_size_in_bytes)
+			print('link: ',self.link)
+			print('out dir: ',self.out_dir)
+			# assert False
 
 	def write(self):
 		pass
