@@ -1,8 +1,11 @@
 import os
 from bs4 import BeautifulSoup
+from sanitize_filename import sanitize
 class Base():
 
 	def __init__(self, title, link, out_dir) -> None:
+		title = sanitize(title)
+		# print(f'crawling {title}')
 		out_dir = os.path.join(out_dir, title)
 		if not os.path.exists(out_dir):
 			os.makedirs(out_dir)

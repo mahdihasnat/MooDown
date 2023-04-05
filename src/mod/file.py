@@ -15,6 +15,7 @@ class File(Base):
 	
 	def crawl(self, u):
 		r = u.session.get(self.link, stream=True)
+		print("out_dir: ",self.out_dir)
 		with open(self.out_dir, 'wb') as f:
 			for chunk in r.iter_content(chunk_size=1024):
 				if chunk:
