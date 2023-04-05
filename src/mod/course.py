@@ -30,8 +30,6 @@ class Course(Base):
 
 		print(f'crawling {self.link}...')
 
-		from model.a import AElement
-		AElement.clear_instances()
 		from model.factory import get_element
 
 		b = u.get_absolute_soup(self.link)
