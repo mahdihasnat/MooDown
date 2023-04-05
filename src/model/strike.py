@@ -7,4 +7,4 @@ class StrikeElement(Element):
 		self.div = DivElement(self.soup)
 
 	def md(self) -> str:
-		return '~~' + self.div.md() + '~~'
+		return '<strike>' + self.div.md() + '</strike>'

@@ -19,3 +19,6 @@ class AElement(Element):
 	
 	def title(self):
 		return self.ch.text()
+	
+	def text(self):
+		return self.ch.text()
