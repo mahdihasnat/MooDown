@@ -56,7 +56,9 @@ def crawl(root,u):
 				continue
 			
 			typ = get_type(href)
-			if typ != Type.OTHER:
+
+			# check if it is a redirect
+			if typ in [Type.FILE,Type.RESOURCE,Type.THEME,Type.URL]:
 				print('href: ',href)
 				head = u.session.head(href, allow_redirects=True)
 				if head.status_code == 200:
@@ -66,7 +68,7 @@ def crawl(root,u):
 				visited[old_href] = visited[href]
 				a.href = encode_url(os.path.relpath(visited[old_href], obj.out_dir))
 				continue
-			
+
 			typ = get_type(href)
 
 			nxt = None
