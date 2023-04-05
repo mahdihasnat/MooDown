@@ -36,10 +36,6 @@ def crawl(root,u):
 
 		obj = q.pop()
 
-		if obj.link in visited:
-			continue
-
-		visited[obj.link] = obj.out_dir
 
 		print('crawling',obj.link, ' in ', obj.out_dir, ' with title ', obj.title)
 		
@@ -52,12 +48,16 @@ def crawl(root,u):
 			href = a.href.strip()
 			title  = a.title().strip()
 			
-			if href in visited:
+			old_href = href
+
+			if old_href in visited:
+				from utils.url import encode_url
+				a.href = encode_url(os.path.relpath(visited[old_href], obj.out_dir))
 				continue
-
+			
 			typ = get_type(href)
-
 			if typ != Type.OTHER:
+				print('href: ',href)
 				head = u.session.head(href, allow_redirects=True)
 				if head.status_code == 200:
 					href = head.headers['Location'] if 'Location' in head.headers else href
@@ -93,6 +93,7 @@ def crawl(root,u):
 			elif typ == Type.FILE or typ == Type.RESOURCE or typ == Type.THEME:
 				# already done in head request
 				# head = u.session.head(href, allow_redirects=True)
+
 				if 'text/html' in head.headers['Content-Type'].split(';'):
 					from .base import Base
 					nxt = Base(title, href, obj.out_dir)
@@ -100,13 +101,21 @@ def crawl(root,u):
 					from mod.file import File
 					nxt = File(title, href, obj.out_dir, head)
 			
+			if href in visited:
+				visited[old_href] = visited[href]
+				a.href = encode_url(os.path.relpath(visited[old_href], obj.out_dir))
+				continue
+			
 			if nxt is not None:
-				if nxt.link in visited:
-					nxt.out_dir = visited[nxt.link]
+				assert href not in visited, f'href {href} already visited'
+				assert href == nxt.link, f'href {href} != nxt.link {nxt.link}'
 				rel_dir = os.path.relpath(nxt.out_dir, obj.out_dir)
 				from utils.url import encode_url
 				a.href = encode_url(rel_dir)
-				if nxt.link not in visited:
-					q.append(nxt)
+				visited[old_href] = nxt.out_dir
+				visited[href] = nxt.out_dir
+
+				q.append(nxt)
+				
 		obj.write()
 
