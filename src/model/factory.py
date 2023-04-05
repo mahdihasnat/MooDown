@@ -22,9 +22,6 @@ def get_element(soup):
 		else:
 			from .html import HtmlIgnoreElement
 			return HtmlIgnoreElement(soup)
-	elif soup.name in ['p','label']:
-		from .p import PElement
-		return PElement(soup)
 	elif soup.name == 'i':
 		from .i import IElement
 		return IElement(soup)
@@ -55,7 +52,7 @@ def get_element(soup):
 	elif soup.name in ['hr','br']:
 		from .html import HtmlSingleton
 		return HtmlSingleton(soup)
-	elif soup.name in ['param','object','video','source']:
+	elif soup.name in ['param','object','video','source','p','label']:
 		from .html import HtmlIgnoreElement
 		return HtmlIgnoreElement(soup)
 	else:

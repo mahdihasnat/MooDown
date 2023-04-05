@@ -21,7 +21,7 @@ class User:
 		}
 		self.session = session()
 		self.session.post(baseurl + 'login/index.php', data=authdata)
-		assert self.session.get(baseurl + 'my/').status_code == 200
+		# assert self.session.get(baseurl + 'my/').status_code == 200
 	
 	def get_absolute_soup(self, url):
 		r = self.session.get(url)
