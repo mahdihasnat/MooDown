@@ -5,8 +5,8 @@ def get_image_title(link):
 	try:
 		y = parse_qs(link)['image'][0]
 	except:
-		assert False
-		y='img'
+		import random
+		y='img' + str(random.randint(0,100000))
 	return y
 
 class ImgElement(Element):
