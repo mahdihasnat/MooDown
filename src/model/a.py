@@ -15,8 +15,7 @@ class AElement(Element):
 		self.ch = DivElement(self.soup)
 
 	def md(self):
-		# return '[' + self.ch.md() + '](' + self.href + ')'
-		return '<a href="' + self.href + '">' + self.ch.md().strip() + '</a>'
+		return '<a href="' + self.href + '">' + self.ch.text().strip() + '</a>'
 	
 	def title(self):
-		return self.ch.md()
+		return self.ch.text()

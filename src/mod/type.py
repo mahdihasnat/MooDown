@@ -16,7 +16,8 @@ class Type(Enum):
 	URL = 10
 	COURSE_VIEW = 11
 	USER_VIEW = 12
-	OTHER = 13
+	THEME = 13
+	OTHER = 14
 
 
 def get_type(url):
@@ -47,6 +48,8 @@ def get_type(url):
 		return Type.COURSE_VIEW
 	elif baseurl+'user/view.php' in url:
 		return Type.USER_VIEW
+	elif baseurl+'theme/' in url:
+		return Type.THEME
 	elif baseurl in url:
 		assert False, f'unknown url {url}'
 	else:

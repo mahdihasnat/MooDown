@@ -27,3 +27,6 @@ class Element:
 
 	def md(self):
 		assert False, 'Not implemented'
+	
+	def text(self):
+		return self.md()
