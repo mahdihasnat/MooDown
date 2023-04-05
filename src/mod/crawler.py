@@ -15,13 +15,18 @@ def load_state(root):
 	visited = dict()
 	# check if visited.pickle exists
 	if os.path.exists('visited.pickle'):
+		print('\033[91m'+'Resuming parsing from previous checkpoint in: visited.pickle'+'\033[0m')
 		with open('visited.pickle','rb') as f:
 			visited = pickle.load(f)
 	q = list()
 	q.append(root)
 	if os.path.exists('q.pickle'):
+		print('\033[91m'+'Resuming parsing from previous checkpoint in: q.pickle'+'\033[0m')
 		with open('q.pickle','rb') as f:
 			q = pickle.load(f)
+		# sleep for 1 sec
+		import time
+		time.sleep(1)
 	return visited, q
 
 def crawl(root,u):
