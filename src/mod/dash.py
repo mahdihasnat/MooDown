@@ -8,6 +8,7 @@ class Dash(Base):
 	
 	def modify_page(self, x):
 		x.find('aside').unwrap()
+		x.find('a',{'class':'skip-block'}).unwrap()
 		
 		while True:
 			try:
