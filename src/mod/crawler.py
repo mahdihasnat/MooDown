@@ -62,6 +62,11 @@ def crawl(root,u):
 				if head.status_code == 200:
 					href = head.headers['Location'] if 'Location' in head.headers else href
 
+			if href in visited:
+				visited[old_href] = visited[href]
+				a.href = encode_url(os.path.relpath(visited[old_href], obj.out_dir))
+				continue
+			
 			typ = get_type(href)
 
 			nxt = None
@@ -101,10 +106,6 @@ def crawl(root,u):
 					from mod.file import File
 					nxt = File(title, href, obj.out_dir, head)
 			
-			if href in visited:
-				visited[old_href] = visited[href]
-				a.href = encode_url(os.path.relpath(visited[old_href], obj.out_dir))
-				continue
 			
 			if nxt is not None:
 				assert href not in visited, f'href {href} already visited'
