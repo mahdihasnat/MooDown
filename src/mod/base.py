@@ -33,5 +33,5 @@ class Base():
 	
 	def write(self):
 		readme = self.model.md()
-		with open(os.path.join(self.out_dir,'README.md'),'w') as f:
+		with open(os.path.join(self.out_dir,'README.md'),'w', encoding='utf-8') as f:
 			f.write(readme)
