@@ -36,7 +36,7 @@ def crawl(root,u):
 	counter = 1
 	while len(q) > 0:
 		counter = counter + 1
-		if counter % 10 == 0:
+		if counter % 5 == 0:
 			save_state(visited, q)
 
 		obj = q.pop()
