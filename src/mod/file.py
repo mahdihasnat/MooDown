@@ -13,12 +13,21 @@ class File(Base):
 	def get_file_name(self,headers_content_disposition):
 		return headers_content_disposition.split(';')[1].split('=')[1].strip('"')
 	
+	def get_existing_file_size(self, out_dir):
+		if os.path.exists(out_dir):
+			return os.path.getsize(out_dir)
+		return 0
+
+
 	def crawl(self, u):
 		r = u.session.get(self.link, stream=True)
 		# print('link: ',self.link)
 		total_size_in_bytes= int(r.headers.get('content-length', 0))
 		block_size = 1024 #1 Kibibyte
 		progress_bar = tqdm(total=total_size_in_bytes, unit='iB', unit_scale=True)
+		if self.get_existing_file_size(self.out_dir) == total_size_in_bytes:
+			progress_bar.close()
+			return
 		with open(self.out_dir, 'wb') as f:
 			for data in r.iter_content(block_size):
 				progress_bar.update(len(data))
