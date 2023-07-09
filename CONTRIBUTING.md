@@ -1,1 +1,2 @@
-
+- Create a issues first.
+- Make a PR mentioning issue id.
