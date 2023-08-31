@@ -2,3 +2,4 @@ python-dotenv
 sanitize_filename
 tqdm
 beautifulsoup4
+requests
