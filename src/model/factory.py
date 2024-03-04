@@ -32,7 +32,7 @@ def get_element(soup):
 		from .i import IElement
 		return IElement(soup)
 	
-	elif soup.name == 'u':
+	elif soup.name == 'u' or soup.name =='em':
 		soup.name = 'em'
 		return HtmlElement(soup)
 	
@@ -51,7 +51,7 @@ def get_element(soup):
 		return HtmlIgnoreElement(soup)
 	
 	elif soup.name in ['table','thead','th','tbody','tr','td','ul','li','ol',
-				'col','colgroup','center','b','s','strike']:
+				'col','colgroup','center','b','s','strike', 'blockquote', 'noscript', 'strong', 'code']:
 		from .html import HtmlElement
 		return HtmlElement(soup)
 	
